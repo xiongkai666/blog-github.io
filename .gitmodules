@@ -1,0 +1,3 @@
+[submodule "themes/Fan"]
+	path = themes/Fan
+	url = https://github.com/fan-lv/Fan.git
