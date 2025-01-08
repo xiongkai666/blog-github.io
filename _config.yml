@@ -102,3 +102,8 @@ theme: Fan
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+algolia:
+  applicationID: 'M6WFC1L832'
+  apiKey: '1737081e220796d34022098e0f916143'
+  indexName: 'blog_search'
