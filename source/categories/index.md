@@ -1,5 +1,4 @@
 ---
-search: false
 title: categories
 type: "categories"
 layout: "categories"
