@@ -109,4 +109,7 @@ algolia:
   indexName: 'blog_search'
   fields:
     - title
-    - content:strip
+    - content
+  # 可选，定义需要索引的内容类型
+  filter: 
+    - posts
