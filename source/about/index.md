@@ -1,5 +1,6 @@
 ---
-type: 关于
+title: 关于
+type: "about"
 layout: "about"
 date: 2025-01-09 12:29:34
 ---
