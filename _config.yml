@@ -113,3 +113,7 @@ algolia:
   # 可选，定义需要索引的内容类型
   filter: 
     - posts
+
+aplayer:
+  asset_inject: false
+  meting: true
