@@ -5,8 +5,7 @@ tags: transformer
 categories: 面经
 top: 1
 ---
-![Transfomer架构](../pic/Transfomer图形.png)
-![Transfomer架构-注释版](../pic/Transfomer图形-注释版.webp)
+![Transfomer架构-注释版](../../images/transfomer/Transfomer图形-注释版.webp)
 # 一、嵌入层
 ## 简述Transfomer的嵌入层（Embedding Layer）
 嵌入层作为transformer的输入层，主要是将输入的 Token 转换为连续的向量表示，主要包括词嵌入和位置编码两个部分。
