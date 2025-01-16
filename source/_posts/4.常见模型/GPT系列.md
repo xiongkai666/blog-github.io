@@ -1,9 +1,15 @@
-## 为什么GPT系列要采用Only-Decoder模式
+---
+title: GPT面试经验
+date: 2025-01-08 17:40:38
+tags: GPT
+categories: GPT
+---
+## 为什么GPT等LLM采用Only-Decoder模式
 GPT（Generative Pre-trained Transformer）采用**only-decoder（仅decoder）模式**的主要原因与其设计目标和使用场景密切相关，以下是几个核心原因：
 ---
 ### 1. **专注于生成任务**
 - **任务特点**：GPT的核心目标是**生成连续的文本**（例如回答问题、写作、总结等）。只需要基于输入的上下文生成输出，而不需要像encoder那样提取复杂的特征。
-- **只用decoder**：decoder具有自回归的特性（autoregressive），即它通过**逐词预测下一步的输出**，非常适合生成自然语言。
+- **只用decoder**：decoder具有自回归的特性（autoregressive），即它通过**逐词预测下一步的输出**，非常适合生成文本。
 ---
 ### 2. **自回归生成方式**
 - **decoder的工作方式**：GPT的decoder通过掩码机制（masked self-attention）限制每个位置只能看到它之前的词，从而实现从左到右逐步生成文本。

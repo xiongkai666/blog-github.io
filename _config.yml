@@ -8,7 +8,7 @@ subtitle: '人生如逆旅，我亦是行人'
 description: '人生如逆旅，我亦是行人'
 keywords:
 author: KK
-language: cn
+language: zh-CN
 timezone: ''
 
 # URL
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: Fan
+theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -113,3 +113,9 @@ algolia:
   # 可选，定义需要索引的内容类型
   filter: 
     - posts
+
+math:
+  engine: 'mathjax'
+  mathjax:
+    src: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML   
+
