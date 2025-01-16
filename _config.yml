@@ -4,7 +4,7 @@
 
 # Site
 title: 一只大笨熊
-subtitle: '人生如逆旅，我亦是行人'
+subtitle: '学而不思则罔，不思不学则爽'
 description: '人生如逆旅，我亦是行人'
 keywords: hi
 author: KK
@@ -40,7 +40,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 syntax_highlighter: highlight.js
@@ -104,7 +104,7 @@ deploy:
   type: ''
 
 algolia:
-  applicationID: "M6WFC1L832"
+  applicationID: 'M6WFC1L832'
   apiKey: '6fb10d4d7a57fac235071198bb6544fd'
   indexName: 'blog_search'
   fields:
@@ -114,7 +114,6 @@ algolia:
   filter: 
     - posts
 
-math:
-  engine: 'mathjax'
-  mathjax:
-    src: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML   
+markdown:
+  plugins:
+    - '@renbaoshuo/markdown-it-katex'
