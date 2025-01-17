@@ -103,17 +103,22 @@ theme: butterfly
 deploy:
   type: ''
 
-algolia:
-  applicationID: 'M6WFC1L832'
-  apiKey: '6fb10d4d7a57fac235071198bb6544fd'
-  indexName: 'blog_search'
-  fields:
-    - title
-    - content
-  # 可选，定义需要索引的内容类型
-  filter: 
-    - posts
-
 markdown:
   plugins:
     - '@renbaoshuo/markdown-it-katex'
+
+algolia:
+  appId: 'M6WFC1L832'
+  apiKey: '6fb10d4d7a57fac235071198bb6544fd'
+  chunkSize: 5000
+  adminApiKey: '2b2e6257a02dc23430952371c767d4b6'
+  indexName: 'blog_search'
+  fields:
+    - content:strip:truncate,0,500
+    - excerpt:strip
+    - gallery
+    - permalink
+    - photos
+    - slug
+    - tags
+    - title
