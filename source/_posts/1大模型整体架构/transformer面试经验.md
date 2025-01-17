@@ -3,7 +3,7 @@ title: transformer面试经验
 date: 2025-01-08 17:40:38
 tags: transformer
 categories: 面经
-top: 1
+sticky: 1
 ---
 ![Transfomer架构-注释版](./transformer面试经验/Transfomer图形-注释版.webp)
 
