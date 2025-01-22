@@ -2,7 +2,7 @@
 title: ChatGLM面试经验
 date: 2025-01-08 17:40:38
 tags: ChatGLM
-categories: ChatGLM
+categories: 常见大模型
 ---
 ## ChatGLM是属于哪个类型
 ChatGLM属于Prefix Decoder类型。LLM中的三大主流框架：Causal Decoder、Prefix Decoder及Encoder-Decoder。

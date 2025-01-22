@@ -2,7 +2,7 @@
 title: BERT面试经验
 date: 2025-01-08 17:40:38
 tags: BERT
-categories: BERT
+categories: 常见大模型
 ---
 ## 为什么BERT要采用Encoder-Only模式
 ### 1. 核心目标：捕获双向上下文信息，适应自然语言理解任务

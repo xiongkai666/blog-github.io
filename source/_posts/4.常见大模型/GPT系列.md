@@ -2,7 +2,7 @@
 title: GPT面试经验
 date: 2025-01-08 17:40:38
 tags: GPT
-categories: GPT
+categories: 常见大模型
 ---
 ## 为什么GPT等LLM采用Only-Decoder模式
 GPT（Generative Pre-trained Transformer）采用**only-decoder（仅decoder）模式**的主要原因与其设计目标和使用场景密切相关，以下是几个核心原因：
