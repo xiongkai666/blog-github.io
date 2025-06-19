@@ -59,7 +59,7 @@ social:
 favicon: /img/favicon.png
 
 avatar:
-  img: /img/chuyinweilai.jpg
+  img: /img/ali.avif
   effect: false
 
 # Disable all banner images
@@ -95,7 +95,7 @@ footer_img: true
 
 # Website Background
 # Can set it to color or image url
-background: /img/bluegirl.jpg
+background: 
 
 cover:
   # Disable the cover or not
