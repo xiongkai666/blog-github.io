@@ -108,10 +108,10 @@ markdown:
     - '@renbaoshuo/markdown-it-katex'
 
 algolia:
-  appId: 'M6WFC1L832'
-  apiKey: 'd7bd207f149d864dc9ad939ebda73c26'
+  appId: 'PWY65A155D'
+  apiKey: '8a5ca88ef27dd23ba1d974ce6527329b'
   chunkSize: 5000
-  adminApiKey: '2b2e6257a02dc23430952371c767d4b6'
+  adminApiKey: '6208d86c34cf255aad8590884b9c6e85'
   indexName: 'blog_search'
   fields:
     - content:strip:truncate,0,500
