@@ -150,12 +150,6 @@ grep "正则表达式" 文件名 # 搜索当前目录下的单个文件中符合
 可以通过：`man 命令`查看某命令的详细手册
 
 ## 软件安装
-- CentOS系统使用：
-  - yum [install remove search] [-y] 软件名称
-    - install 安装
-    - remove 卸载
-    - search 搜索
-    - -y，自动确认
 - Ubuntu系统使用
   - apt [install remove search] [-y] 软件名称
     - install 安装
@@ -194,10 +188,8 @@ grep "正则表达式" 文件名 # 搜索当前目录下的单个文件中符合
 安装：`yum install -y ntp`
 启动管理：`systemctl start | stop | restart | status | disable | enable ntpd`
 手动校准时间：`ntpdate -u ntp.aliyun.com`
-## ip地址
-查看`ip`：`ifconfig`
 ## 主机名
-功能：`Linux`系统的名称
+功能：系统的名称
 查看：`hostname`
 设置：`hostnamectl set-hostname 主机名`
 ## ps命令
@@ -209,27 +201,41 @@ grep "正则表达式" 文件名 # 搜索当前目录下的单个文件中符合
 ## kill命令
 功能：杀死进程信息
 语法：`kill -9 进程ID`，`-9`表示强制结束进程，不加`-9`表示向进程发出信号请求其关闭，是否关闭由该进程决定。
-## nmap命令
+# 网络命令
+## 1.ip地址
+查看`ip`：`ifconfig`
+## 2.nmap命令
 功能：查看`ip`被占用情形
 语法：`nmap ip地址`
-## netstat命令
-功能：查看端口占用
+## 3.netstat命令
+功能：查看端口占用：查看 socket、网络协议栈、网口以及路由表的信息。
+替代命令：`ss`，性能比netstat更好
 用法：`netstat -anptu | grep xxx`
-- 选项：
+- 选项:
+  - `-l`：表示只显示listen状态的socket。
+  - `-t`：显示TCP连接。`netstat -anpt`即查看TCP的连接状态。
   - `-a`：显示所有活动的网络连接以及监听的服务器套接字。
   - `-n`：以数字形式显示地址和端口号，而不尝试确定它们的名称。
   - `-p`：显示与每个套接字关联的进程`ID`和程序名称。
   - `-anp`：显示所有活动的网络连接、监听的服务器套接字以及与之关联的进程。
-  - `-t`：显示TCP连接。`netstat -anpt`即查看TCP的连接状态。
   - `-u`: 显示UDP连接。
-## route命令
+## 4.route命令
 功能：查看当前系统的路由表。
 语法：`route -n`。
-## ping命令
+## 5.sar命令
+功能：查看网络统计的统计信息，如吞吐率和 PPS
+语法：`sar -n 查看类型`
+- 选项：
+  - `-n` 查看网络
+`sar -n DEV`，显示网口的统计数据；
+`sar -n EDEV`，显示关于网络错误的统计数据；
+`sar -n TCP`，显示 TCP 的统计数据
+## 6.ping命令
 功能：测试网络是否联通
 语法：`ping [-c num] 参数`
 选项: `-c`检查的次数，不使用`-c`选项,将无限次数持续检查
 参数: `ip`或主机名,被检查的服务器的`ip`地址或主机名地址
+
 ## wget命令
 功能：文件下载
 语法：`wget [-b] url`
@@ -255,12 +261,7 @@ grep "正则表达式" 文件名 # 搜索当前目录下的单个文件中符合
 - 选项：`-h`，以更加人性化的单位显示
 ## iostat命令
 功能：查看`CPU`、磁盘的相关信息
-## sar命令
-功能：查看网络统计
-语法：`sar -n DEV`
-- 选项：
-  - `-n` 查看网络
-  - `DEV` 表示查看网络接口
+
 ## 环境变量
 - 临时设置：export 变量名=变量值
 - 永久设置：

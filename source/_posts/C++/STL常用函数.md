@@ -314,7 +314,7 @@ void splice(iterator pos, list& other);
 // 示例：
 list1.splice(list1.begin(), list2);//将list2中的所有元素移动到list1的起始位置。
 
-1. splice(pos, other, other_pos)
+2. splice(pos, other, other_pos)
 // 功能:
 //将 other 链表中的 other_pos 位置元素移动到当前链表 pos 位置之前。
 // 函数原型:
@@ -324,7 +324,7 @@ list1.splice(list1.end(), list2, list2.begin());//将list2中的第一个元素�
 // 注意：other也可以值自身，即将本身的某个元素移动到某个位置
 list1.splice(list1.end(), list2, list1.begin());//将list1中的第一个元素移动到末尾。
 
-1. splice(pos, other, other_pos, other_last)
+3. splice(pos, other, other_pos, other_last)
 // 功能:
 //将 other 链表中的 [other_pos, other_last)区间内的元素移动到当前链表 pos 位置之前。
 // 函数原型:
@@ -335,7 +335,7 @@ list1.splice(list1.end(), list2, list2.begin(), list2.begin() + 2);//将list2中
 list1.splice(list1.end(), list1, list1.begin(), list1.begin()+2);//将list1中的前两个元素移动到末尾。
 ```
 
-1. list 合并
+5. list 合并
 ```cpp
 // 函数原型:
 void merge(list& x);

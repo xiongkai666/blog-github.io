@@ -3,8 +3,9 @@ title: 面试和笔试中经常出现的（模板）代码题
 date: 2025-02-27 17:40:38
 tags: 
 - C++
-- 常见算法
-categories: 手撕
+- 算法
+- leetcode
+categories: 面试手撕
 ---
 # 1. 实现LRUCache
 ```cpp
@@ -195,7 +196,7 @@ int main() {
 ```
 ### 快速排序的扩展：
 ```cpp
-// 快速选择算法（快速排序的变种）
+// 快速选择算法（快速排序的变种），找出第k大的数
 int quickselect(vector<int> &nums, int l, int r, int k) {
     if (l >= r)
         return nums[k];
@@ -211,6 +212,6 @@ int quickselect(vector<int> &nums, int l, int r, int k) {
 }
 int findKthLargest(vector<int> &nums, int k) {
         int n = nums.size();
-        return quickselect(nums, 0, n - 1, n - k); //寻找第K大的数
+        return quickselect(nums, 0, n - 1, n - k); //寻找第k大的数
     }
 ```
