@@ -13,3 +13,4 @@
 2. git commit -m ""
 3. git push
 ```
+## 3. 访问网址``https://kkblog.top/``
