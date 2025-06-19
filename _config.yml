@@ -109,7 +109,7 @@ markdown:
 
 algolia:
   appId: 'M6WFC1L832'
-  apiKey: '6fb10d4d7a57fac235071198bb6544fd'
+  apiKey: 'd7bd207f149d864dc9ad939ebda73c26'
   chunkSize: 5000
   adminApiKey: '2b2e6257a02dc23430952371c767d4b6'
   indexName: 'blog_search'
