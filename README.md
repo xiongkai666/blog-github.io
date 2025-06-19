@@ -1,4 +1,5 @@
-# 博客生成流程
+# 博客生成流程h
+hexo + github + netlify + alo
 ## 1. 生成本地博客
 ```shell
 # 切换到根目录下
