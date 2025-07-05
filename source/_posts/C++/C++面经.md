@@ -74,6 +74,7 @@ categories:
 
 ---
 
+## static ⭐
 ## static int 用法
 
 ### 1. 静态局部变量
