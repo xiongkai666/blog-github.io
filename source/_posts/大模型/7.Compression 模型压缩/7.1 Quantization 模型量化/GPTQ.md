@@ -11,7 +11,7 @@ GPTQ 的思想最初来源于 Yann LeCun 在 1990 年提出的 OBD 算法，随�
 
 OBD 实际上是一种剪枝方法，用于降低模型复杂度，提高泛化能力。
 
-如果要在模型中去除一些参数（即剪枝），直觉上，我们希望去除对目标函数 $ E $ 影响小的参数。于是我们可以对目标函数 $\mathbf E$ 做泰勒展开：
+如果要在模型中去除一些参数（即剪枝），直觉上，我们希望去除对目标函数 $E$ 影响小的参数。于是我们可以对目标函数 $E$ 做泰勒展开：
 
 $$
 \Delta E = \sum_i g_i \Delta w_i + \frac{1}{2} \sum_i h_{ii} \Delta w_i^2 + \frac{1}{2} \sum_{i \neq j} h_{ij} \Delta w_i \Delta w_j + O(\Delta w^3)
@@ -31,7 +31,7 @@ $$
 \Delta E = \frac{1}{2} \sum_i h_{ii} \Delta w_i^2
 $$
 
-因此，删除一个参数时，对目标函数的影响就是 $ \frac{1}{2} h_{ii} \Delta w_i^2 $。所以我们只要计算海森矩阵 $ h_{ii} $，就可以知道每个参数对目标的影响。然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。
+因此，删除一个参数时，对目标函数的影响就是 $\frac{1}{2}h_{ii} \Delta w_i^2$。所以我们只要计算海森矩阵 $ h_{ii} $，就可以知道每个参数对目标的影响。然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。
 
 ## OBS: Optimal Brain Surgeon
 
@@ -41,30 +41,30 @@ $$
 $$
 用向量/矩阵形式表达会更加简明:
 $$
-\Delta E=\frac{1}{2} \Delta \mathbf{w}^{\mathrm{T}} \mathbf{H} \Delta \mathbf{w}
+\Delta E=\frac{1}{2} \Delta {w}^{\mathrm{T}} {H} \Delta {w}
 $$
-删除一个权重 $w_{q}$，那么 $\Delta \mathbf{w}$ 的第 $q$ 维固定为 $-w_{q}$，但其他维度的值可变，可以用于减少删除该权重带来的目标偏离。
+删除一个权重 $w_{q}$，那么 $\Delta {w}$ 的第 $q$ 维固定为 $-w_{q}$，但其他维度的值可变，可以用于减少删除该权重带来的目标偏离。
 
-$\Delta \mathbf{w}$ 的第 $q$ 维固定为 $-w_{q}$，这是一个约束条件，我们可以表示为一个等式:
+$\Delta {w}$ 的第 $q$ 维固定为 $-w_{q}$，这是一个约束条件，我们可以表示为一个等式:
 $$
-\mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q}=0
+{e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=0
 $$
-其中 $\mathbf{e}_{\mathbf{q}}$ 是一个 one - hot 向量，第 $q$ 个位置是 1，其余位置是 0。
+其中 ${e}_{{q}}$ 是一个 one - hot 向量，第 $q$ 个位置是 1，其余位置是 0。
 
 我们希望找到最合适的权重 $w_{q}$，使得删除它对目标的影响最小。这可以表示为一个最优化问题:
 $$
-\min _{\Delta \mathbf{w}, w_{q}} \frac{1}{2} \Delta \mathbf{w}^{\mathrm{T}} \mathbf{H} \Delta \mathbf{w} \quad \text { s.t. } \mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q}=0
+\min _{\Delta {w}, w_{q}} \frac{1}{2} \Delta {w}^{\mathrm{T}} {H} \Delta {w} \quad \text { s.t. } {e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=0
 $$
 用 Lagrange （拉格朗日）乘数法求解:
 $$
-L=\frac{1}{2} \Delta \mathbf{w}^{\mathrm{T}} \mathbf{H} \Delta \mathbf{w}+\lambda(\mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q})
+L=\frac{1}{2} \Delta {w}^{\mathrm{T}} {H} \Delta {w}+\lambda({e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q})
 $$
 可以得到:
 $$
-\Delta \mathbf{w}=-\frac{w_q}{[\mathbf{H}^{-1}]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text {and} \quad L=\frac{1}{2} \frac{w_q^2}{[\mathbf{H}^{-1}]_q q}
+\Delta {w}=-\frac{w_q}{[{H}^{-1}]_{q q}} {H}^{-1} \cdot {e}_{{q}} \quad \text {and} \quad L=\frac{1}{2} \frac{w_q^2}{[{H}^{-1}]_q q}
 $$
 
-于是，我们也只需要求解海森矩阵的逆，就可以计算每个参数 $w_{q}$ 对目标的影响 $\frac{1}{2} \frac{w_{q}^{2}}{[\mathbf{H}^{-1}]_{q q}}$，然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。同时，每次剪枝一个参数，其他的参数也按照 $\Delta \mathbf{w}$ 更新一次。
+于是，我们也只需要求解海森矩阵的逆，就可以计算每个参数 $w_{q}$ 对目标的影响 $\frac{1}{2} \frac{w_{q}^{2}}{[{H}^{-1}]_{q q}}$，然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。同时，每次剪枝一个参数，其他的参数也按照 $\Delta {w}$ 更新一次。
 
 这里的思想一直沿用到了 GPTQ 算法：也就是对某个 block 内的所有参数逐个量化，每个参数量化后，需要适当调整这个 block 内其他未量化的参数，以弥补量化造成的精度损失。
 ## OBC
@@ -74,13 +74,13 @@ OBD 和 OBS 都存在一个缺点，就是剪枝需要计算全参数的海森�
 
 令参数矩阵的维度为 $(d_{row},d_{col})$，OBC 论文的目标函数定义为：
 $$
-E=\sum_{i = 1}^{d_{row}} \|\mathbf{W}_{\mathbf{i},:} \mathbf{X}-\hat{\mathbf{W}}_{\mathbf{i},:} \mathbf{X}\|_{2}^{2}
+E=\sum_{i = 1}^{d_{row}} \|{W}_{{i},:} {X}-\hat{{W}}_{{i},:} {X}\|_{2}^{2}
 $$
 直观来看，就是参数量化前后，给同样的输入（具有代表性的校准数据），输出结果的差异要尽可能小。
 
-由于每一行的参数独立，所以我们只需要对每一行的量化后参数 $\hat{\mathbf{W}}_{\mathbf{i},:}$ 求海森矩阵：
+由于每一行的参数独立，所以我们只需要对每一行的量化后参数 $\hat{{W}}_{{i},:}$ 求海森矩阵：
 $$
-\frac{\partial E}{\partial \hat{\mathbf{W}}_{\mathbf{i},:}^{2}}=\mathbf{H}_{\mathbf{i}} = 2\mathbf{X}\mathbf{X}^{\mathbf{T}},\forall i = 1,2,\cdots,d_{row}
+\frac{\partial E}{\partial \hat{{W}}_{{i},:}^{2}}={H}_{{i}} = 2{X}{X}^{{T}},\forall i = 1,2,\cdots,d_{row}
 $$
 如果我们对一行共 $d_{col}$ 个参数删除 k 个参数，那么 OBC 的算法流程如下：
 
@@ -95,11 +95,11 @@ OBQ
 
 OBQ（和OBC是同一篇文章）指出，剪枝是一种特殊的量化（即剪枝的参数等价于量化到0点），我们只需要修改一下OBC的约束条件即可：
 $$
-\mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q}=\operatorname{quant}(w_{q})
+{e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=\mathrm{quant}(w_{q})
 $$
-也就是说，OBC推导结果中的 $w_{q}$ 替换成 $w_{q}-\operatorname{quant}(w_{q})$，就能得到一般量化情况下的权重更新公式：
+也就是说，OBC推导结果中的 $w_{q}$ 替换成 $w_{q}-\mathrm{quant}(w_{q})$，就能得到一般量化情况下的权重更新公式：
 $$
-\Delta \mathbf{w}=-\frac{w_{q}-\mathrm{quant}(w_{q})}{[\mathbf{H}^{-1}]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{(w_{q}-\mathrm{quant}(w_q))^{2}}{[\mathbf{H}^{-1}]_{qq}}
+\Delta {w}=-\frac{w_{q}-\mathrm{quant}(w_{q})}{[{H}^{-1}]_{q q}} {H}^{-1} \cdot {e}_{{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{(w_{q}-\mathrm{quant}(w_q))^{2}}{[{H}^{-1}]_{qq}}
 $$
 OBQ对一行做量化的时间复杂度为 $O(d_{col}^{3})$，因此对整个参数矩阵做量化的时间复杂度为 $O(d_{row} \cdot d_{col}^{3})$。
 
@@ -120,7 +120,7 @@ GPTQ 的创新点有：
 问题：虽然 GPTQ 降低了时间复杂度，但这个算法的计算/通信比太低，通信带宽成为了瓶颈。
 例如在量化某个参数矩阵的情况下，每次量化一个参数，其他所有未量化的参数都要按公式全都要更新一遍：
 $$
-\mathbf{w} arrow \mathbf{w}-\mathbf{H}^{-1}_{:, p} \frac{1}{[\mathbf{H}^{-1}]_{p p}} \cdot(w_{p}-q(w_{p}))
+{w} arrow {w}-{H}^{-1}_{:, p} \frac{1}{[{H}^{-1}]_{p p}} \cdot(w_{p}-q(w_{p}))
 $$
 如果每行的量化并行计算，那么每次更新过程就需要 read + write 一次参数矩阵。如果参数矩阵的维度为 $k \times k$，那么量化这个参数矩阵就需要读写 k 次参数，总共的 IO 量为 $k^3$ 个元素。当 k 比较大时 ($>=4096$)，需要读写的元素就非常多了，运行时间大都被 IO 占据。 
 
