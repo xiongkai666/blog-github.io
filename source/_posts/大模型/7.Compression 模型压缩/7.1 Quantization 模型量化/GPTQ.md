@@ -57,14 +57,14 @@ $$
 $$
 用 Lagrange （拉格朗日）乘数法求解:
 $$
-L=\frac{1}{2} \Delta \mathbf{w}^{\mathrm{T}} \mathbf{H} \Delta \mathbf{w}+\lambda\left(\mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q}\right)
+L=\frac{1}{2} \Delta \mathbf{w}^{\mathrm{T}} \mathbf{H} \Delta \mathbf{w}+\lambda(\mathbf{e}_{\mathbf{q}}^{\mathrm{T}} \cdot \Delta \mathbf{w}+w_{q})
 $$
 可以得到:
 $$
-\Delta \mathbf{w}=-\frac{w_{q}}{\left[\mathbf{H}^{-1}\right]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{w_{q}^{2}}{\left[\mathbf{H}^{-1}\right]_{q q}}
+\Delta \mathbf{w}=-\frac{w_q}{[\mathbf{H}^{-1}]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text {and} \quad L=\frac{1}{2} \frac{w_q^2}{[\mathbf{H}^{-1}]_q q}
 $$
 
-于是，我们也只需要求解海森矩阵的逆，就可以计算每个参数 $w_{q}$ 对目标的影响 $\frac{1}{2} \frac{w_{q}^{2}}{\left[\mathbf{H}^{-1}\right]_{q q}}$，然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。同时，每次剪枝一个参数，其他的参数也按照 $\Delta \mathbf{w}$ 更新一次。
+于是，我们也只需要求解海森矩阵的逆，就可以计算每个参数 $w_{q}$ 对目标的影响 $\frac{1}{2} \frac{w_{q}^{2}}{[\mathbf{H}^{-1}]_{q q}}$，然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。同时，每次剪枝一个参数，其他的参数也按照 $\Delta \mathbf{w}$ 更新一次。
 
 这里的思想一直沿用到了 GPTQ 算法：也就是对某个 block 内的所有参数逐个量化，每个参数量化后，需要适当调整这个 block 内其他未量化的参数，以弥补量化造成的精度损失。
 ## OBC
@@ -99,7 +99,7 @@ $$
 $$
 也就是说，OBC推导结果中的 $w_{q}$ 替换成 $w_{q}-\operatorname{quant}(w_{q})$，就能得到一般量化情况下的权重更新公式：
 $$
-\Delta \mathbf{w}=-\frac{w_{q}-\operatorname{quant}(w_{q})}{\left[\mathbf{H}^{-1}\right]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{(w_{q}-\operatorname{quant}(w_{q}))^{2}}{\left[\mathbf{H}^{-1}\right]_{q q}}
+\Delta \mathbf{w}=-\frac{w_{q}-\mathrm{quant}(w_{q})}{[\mathbf{H}^{-1}]_{q q}} \mathbf{H}^{-1} \cdot \mathbf{e}_{\mathbf{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{(w_{q}-\mathrm{quant}(w_q))^{2}}{[\mathbf{H}^{-1}]_{qq}}
 $$
 OBQ对一行做量化的时间复杂度为 $O(d_{col}^{3})$，因此对整个参数矩阵做量化的时间复杂度为 $O(d_{row} \cdot d_{col}^{3})$。
 
@@ -120,7 +120,7 @@ GPTQ 的创新点有：
 问题：虽然 GPTQ 降低了时间复杂度，但这个算法的计算/通信比太低，通信带宽成为了瓶颈。
 例如在量化某个参数矩阵的情况下，每次量化一个参数，其他所有未量化的参数都要按公式全都要更新一遍：
 $$
-\mathbf{w} \leftarrow \mathbf{w}-\mathbf{H}^{-1}_{:, p} \frac{1}{\left[\mathbf{H}^{-1}\right]_{p p}} \cdot\left(w_{p}-q\left(w_{p}\right)\right)
+\mathbf{w} arrow \mathbf{w}-\mathbf{H}^{-1}_{:, p} \frac{1}{[\mathbf{H}^{-1}]_{p p}} \cdot(w_{p}-q(w_{p}))
 $$
 如果每行的量化并行计算，那么每次更新过程就需要 read + write 一次参数矩阵。如果参数矩阵的维度为 $k \times k$，那么量化这个参数矩阵就需要读写 k 次参数，总共的 IO 量为 $k^3$ 个元素。当 k 比较大时 ($>=4096$)，需要读写的元素就非常多了，运行时间大都被 IO 占据。 
 
