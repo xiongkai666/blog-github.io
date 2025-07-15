@@ -315,6 +315,7 @@ void splice(iterator pos, list& other);
 list1.splice(list1.begin(), list2);//将list2中的所有元素移动到list1的起始位置。
 
 2. splice(pos, other, other_pos)
+
 // 功能:
 //将 other 链表中的 other_pos 位置元素移动到当前链表 pos 位置之前。
 // 函数原型:
@@ -691,3 +692,5 @@ set_difference(iterator beg1, iterator end1, iterator beg2, iterator end2, itera
 // 两个集合必须是有序序列
 // beg1 容器1开始迭代器 // end1 容器1结束迭代器 // beg2 容器2开始迭代器 // end2 容器2结束迭代器 //dest 目标容器开始迭代器
 ```
+
+# google_test

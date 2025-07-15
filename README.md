@@ -24,3 +24,5 @@ git submodule update --remote themes/butterfly
 3. git push
 ```
 ### 3. 访问网址``https://kkblog.top/``
+### 4. 域名续费
+网址：https://wanwang.aliyun.com/buy/commonbuy?scenario=renew&domainCartTradeParams=dr_12818093_47_1751796851436&orderId=RO20250706181423000001

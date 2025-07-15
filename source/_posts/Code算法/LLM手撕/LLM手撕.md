@@ -33,9 +33,9 @@ class SelfAttention(nn.Module):
         output = torch.bmm(atten, V)
         return output
 
-# 示例用法
-X = torch.randn(4, 3, 2)
-self_attention = SelfAttention(2, 4, 5)
-res = self_attention(X)
-print(res)
+if __name__ == "__main__":
+    X = torch.randn(4, 3, 2)
+    self_attention = SelfAttention(2, 4, 5)
+    res = self_attention(X)
+    print(res)
 ```

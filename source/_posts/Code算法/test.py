@@ -1,13 +1,3 @@
----
-title: 深度学习各种算法手撕（实现）
-date: 2025-04-28 17:40:38
-tags: 
-- Python
-- pytorch
-categories: 面试手撕
----
-## 目标检测-Iou (交并比)
-```python
 import numpy as np
  
 def ComputeIOU(boxA, boxB):
@@ -33,8 +23,7 @@ def ComputeIOU(boxA, boxB):
     return iou
 
 if __name__ == "__main__":
-    boxA = [1,1,3,3]
-    boxB = [2,2,4,4]
+    boxA = [1,1,3,3] # A : [x1, y1, x2, y2]
+    boxB = [2,2,4,4] 
     IOU = ComputeIOU(boxA, boxB)
     print(f"IOU: {IOU:.4f}") 
-```
