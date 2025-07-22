@@ -1,3 +1,10 @@
+---
+title: transformer面试经验2
+date: 2025-01-08 17:40:38
+tags: transformer
+categories: 面经
+sticky: 1
+---
 ## 详细描述一下transformer⭐⭐⭐⭐⭐
 Transformer 是 2017 年由 Google 团队在论文《Attention Is All You Need》中提出的深度学习模型，彻底摆脱了 RNN、CNN 等依赖序列或局部感受野的结构，完全基于**自注意力机制（Self-Attention）** 实现，在并行计算效率和长序列依赖捕捉上具有显著优势，成为 NLP 领域（如机器翻译、文本生成）乃至多模态任务（如图文理解）的基础架构。
 
