@@ -652,6 +652,7 @@ output_The = W2 * hidden_The + b2
 ### v1、v2 - 公式推导 && 算法讲解
 - 为了提高大模型中 Attention 层的计算速度，Tri Dao 在 2022 年 5 月提出了 FlashAttention 算法（即 V1），计算速度相比于标准实现提高了 2 - 4 倍（不同的 sequence length 会不一样）。这个算法主要针对的是训练场景。
 - 讲解文章 https://zhuanlan.zhihu.com/p/680091531
+---
 ## Transfomer相对于RNN有什么优势
 1. 并行计算能力
 RNN：RNN 是一种序列模型，必须按时间步依次处理输入数据。也就是说，第 t 时刻的输出依赖于第 t-1 时刻的计算结果，因此不能并行化处理序列中的元素，这导致训练时间较长。
