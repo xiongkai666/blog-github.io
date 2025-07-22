@@ -8,7 +8,23 @@ tags:
 categories: CUDA
 ---
 ## 1. cpu: 矩阵乘法
+
+
 ```cpp
+// 二维矩阵
+void matrixMultiply(const float** A, const float** B, float** C, int m, int p, int n) {
+    // A is m x p, B is p x n, C is m x n
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            float sum = 0.0;
+            for (int k = 0; k < p; ++k) {
+                sum += A[i][k] * B[k][j];
+            }
+            C[i][j] = sum;
+        }
+    }
+}
+// 二维矩阵展开成一维
 void matrixMultiply(const float* A, const float* B, float* C, int m, int p, int n) {
     // A is m x p, B is p x n, C is m x n
     for (int i = 0; i < m; ++i) {
@@ -25,7 +41,7 @@ void matrixMultiply(const float* A, const float* B, float* C, int m, int p, int 
     }
 }
 ```
-## 2. cublas: 矩阵乘法库
+## 2. cublas: 官方矩阵乘法库
 ```cpp
 //cublasSgemm公式：
 cublasStatus_t cublasSgemm( cublasHandle_t handle, 
@@ -48,4 +64,5 @@ float beta = 0.0f;
 cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 2, 2, 3, &alpha, B, 2, A, 3, &beta, C, 2);
 cublasDestroy(handle);
 ```
+
 

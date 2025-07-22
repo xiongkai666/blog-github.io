@@ -81,8 +81,8 @@ __device__ void max_kernel(float* d_in, float* d_out, int N) {
 
 __device__ void reduce_kernel(float* d_in, float* d_out, float* max_val, int N) {
     
-    unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
     unsigned int tid = threadIdx.x;
+    unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
     
     float sum = (idx < N) ? expf(input[idx] - *max_val) : 0.0f;
     //do reduction in warp

@@ -30,7 +30,7 @@ class SelfAttention(nn.Module):
         V = self.v(x)
         atten = nn.Softmax(dim=-1)(torch.bmm(Q, K.permute(0, 2, 1)) / self.norm)
         #等价于atten = F.softmax(torch.bmm(Q, K.transpose(1, 2)) / self.norm, dim=-1)
-        output = torch.bmm(atten, V)
+        output = torch.bmm(atten, V) # torch.matmul
         return output
 
 if __name__ == "__main__":
