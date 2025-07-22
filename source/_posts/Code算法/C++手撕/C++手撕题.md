@@ -3,7 +3,7 @@ title: C++面试手撕题
 date: 2025-02-27 23:40:38
 tags: 
 - C++
-categories: Code算法/C++手撕
+categories: C++手撕
 ---
 ## 使用C++实现一个读写锁
 # 实现一个shared_ptr
