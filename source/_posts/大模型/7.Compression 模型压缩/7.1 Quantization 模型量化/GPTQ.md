@@ -47,23 +47,22 @@ $$
 
 把 $\Delta {w}$ 的第 $q$ 维固定为 $-w_{q}$ 作为一个约束条件，我们可以表示为一个等式:
 $$
-{e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=0
+e_q^T \cdot \Delta w + w_q = 0
 $$
 其中 ${e}_{{q}}$ 是一个 one - hot 向量，第 $q$ 个位置是 1，其余位置是 0。
 
 我们希望找到最合适的权重 $w_{q}$，使得删除它对目标的影响最小。这可以表示为一个最优化问题:
 $$
-\min _{\Delta {w}, w_{q}} \frac{1}{2} \Delta {w}^{\mathrm{T}} {H} \Delta {w} \quad \text { s.t. } {e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=0
+\min_{\Delta w, w_q} \frac{1}{2} \Delta w^{\mathrm{T}} H \Delta w \quad \text{s.t.} \quad e_q^{\mathrm{T}} \cdot \Delta w + w_q = 0
 $$
 用 Lagrange （拉格朗日）乘数法求解:
 $$
-L=\frac{1}{2} \Delta {w}^{\mathrm{T}} {H} \Delta {w}+\lambda({e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q})
+L = \frac{1}{2} \Delta w^{\mathrm{T}} H \Delta w + \lambda \left( e_q^{\mathrm{T}} \cdot \Delta w + w_q \right)
 $$
 可以得到:
 $$
-\Delta {w}=-\frac{w_q}{[{H}^{-1}]_{q q}} {H}^{-1} \cdot {e}_{{q}} \quad \text {and} \quad L=\frac{1}{2} \frac{w_q^2}{[{H}^{-1}]_q q}
+\Delta w = -\frac{w_q}{[H^{-1}]_{qq}} H^{-1} \cdot e_q \quad \text{and} \quad L = \frac{1}{2} \frac{w_q^2}{[H^{-1}]_{qq}}
 $$
-
 于是，我们也只需要求解海森矩阵的逆，就可以计算每个参数 $w_{q}$ 对目标的影响 $\frac{1}{2} \frac{w_{q}^{2}}{[{H}^{-1}]_{q q}}$，然后就可以按照影响从小到大给参数排个序，这样就确定了参数剪枝的次序。同时，每次剪枝一个参数，其他的参数也按照 $\Delta {w}$ 更新一次。
 
 这里的思想一直沿用到了 GPTQ 算法：也就是对某个 block 内的所有参数逐个量化，每个参数量化后，需要适当调整这个 block 内其他未量化的参数，以弥补量化造成的精度损失。
@@ -95,11 +94,11 @@ OBQ
 
 OBQ（和OBC是同一篇文章）指出，剪枝是一种特殊的量化（即剪枝的参数等价于量化到0点），我们只需要修改一下OBC的约束条件即可：
 $$
-{e}_{{q}}^{\mathrm{T}} \cdot \Delta {w}+w_{q}=\mathrm{quant}(w_{q})
+e_q^{\mathrm{T}} \cdot \Delta w + w_q = \mathrm{quant}(w_q)
 $$
 也就是说，OBC推导结果中的 $w_{q}$ 替换成 $w_{q}-\mathrm{quant}(w_{q})$，就能得到一般量化情况下的权重更新公式：
 $$
-\Delta {w}=-\frac{w_{q}-\mathrm{quant}(w_{q})}{[{H}^{-1}]_{q q}} {H}^{-1} \cdot {e}_{{q}} \quad \text { and } \quad L=\frac{1}{2} \frac{(w_{q}-\mathrm{quant}(w_q))^{2}}{[{H}^{-1}]_{qq}}
+\Delta w = -\frac{w_q - \mathrm{quant}(w_q)}{[H^{-1}]_{qq}} H^{-1} \cdot e_q \quad \text{and} \quad L = \frac{1}{2} \frac{(w_q - \mathrm{quant}(w_q))^2}{[H^{-1}]_{qq}}
 $$
 OBQ对一行做量化的时间复杂度为 $O(d_{col}^{3})$，因此对整个参数矩阵做量化的时间复杂度为 $O(d_{row} \cdot d_{col}^{3})$。
 
