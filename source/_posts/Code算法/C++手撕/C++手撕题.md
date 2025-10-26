@@ -5,7 +5,90 @@ tags:
 - C++
 categories: C++手撕
 ---
-## 使用C++实现一个读写锁
+# 使用C++实现一个读写锁
+# 实现一个uniqued_ptr
+```cpp
+#include <utility> // 用于std::move
+
+template <typename T>
+class unique_ptr {
+private:
+    T* ptr; // 指向管理的对象
+
+public:
+    // 构造函数，接受原始指针
+    explicit unique_ptr(T* p = nullptr) : ptr(p) {}
+
+    // 析构函数，释放管理的对象
+    ~unique_ptr() {
+        delete ptr;
+    }
+
+    // 禁止拷贝构造函数（独占所有权不能被拷贝）
+    unique_ptr(const unique_ptr&) = delete;
+
+    // 禁止拷贝赋值运算符
+    unique_ptr& operator=(const unique_ptr&) = delete;
+
+    // 移动构造函数
+    unique_ptr(unique_ptr&& other) noexcept : ptr(other.ptr) {
+        other.ptr = nullptr; // 转移所有权后，原指针置空
+    }
+
+    // 移动赋值运算符
+    unique_ptr& operator=(unique_ptr&& other) noexcept {
+        if (this != &other) { // 避免自我赋值
+            delete ptr;       // 释放当前管理的对象
+            ptr = other.ptr;  // 接管新对象
+            other.ptr = nullptr; // 原指针置空
+        }
+        return *this;
+    }
+
+    // 重载*运算符，获取引用
+    T& operator*() const {
+        return *ptr;
+    }
+
+    // 重载->运算符，获取指针
+    T* operator->() const {
+        return ptr;
+    }
+
+    // 获取原始指针
+    T* get() const {
+        return ptr;
+    }
+
+    // 重置指针，可传入新指针
+    void reset(T* p = nullptr) {
+        if (ptr != p) { // 避免自我重置
+            delete ptr;
+            ptr = p;
+        }
+    }
+
+    // 释放所有权，返回原始指针
+    T* release() {
+        T* temp = ptr;
+        ptr = nullptr; // 释放所有权后，当前指针置空
+        return temp;
+    }
+
+    // 检查是否管理着对象
+    explicit operator bool() const {
+        return ptr != nullptr;
+    }
+};
+
+
+// 辅助函数，用于创建unique_ptr
+template <typename T, typename... Args>
+unique_ptr<T> make_unique(Args&&... args) {
+    return unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+
+```
 # 实现一个shared_ptr
 ```cpp
 #pragma once
