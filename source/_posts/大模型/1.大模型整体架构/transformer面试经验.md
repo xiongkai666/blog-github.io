@@ -5,11 +5,12 @@ tags: transformer
 categories: 面经
 sticky: 1
 ---
-![Transfomer架构-注释版](./transformer面试经验/Transfomer图形-注释版.webp)
 
-## 简述Transfomer的嵌入层（Embedding Layer）
+![Transfomer架构-注释版](./transformer面试经验/Transfomer图形-注释版.webp)
+# 简述Transfomer的嵌入层（Embedding Layer）
 嵌入层作为transformer的输入层，主要是将输入的 Token 转换为连续的向量表示，主要包括词嵌入和位置编码两个部分。
-### 1.词嵌入（Word Embedding）
+
+## 1.词嵌入（Word Embedding）
 词嵌入是将输入序列中的每个token映射到一个高维嵌入向量。这些向量能够捕捉到词与词之间的语义关系。
 
 词嵌入的过程是：（1）初始化一个嵌入矩阵，其行数等于词汇表大小V，列数为嵌入维度d；（2）通过词汇表得到输入文本中每个token对应的索引；（3）以索引为行数，直接从嵌入矩阵里取出对应的那一行向量，这行向量就成了该 token的嵌入向量。
@@ -23,6 +24,7 @@ sticky: 1
 $$
 PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d})
 $$
+
 $$
 PE_{(pos, 2i+1)} = \cos(pos / 10000^{2i/d})
 $$

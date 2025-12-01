@@ -412,6 +412,7 @@ rightside_item_order:
 # --------------------------------------
 
 anchor:
+  enable: false
   # When you scroll, the URL will update according to header id.
   auto_update: false
   # Click the headline to scroll and update the anchor
@@ -452,7 +453,7 @@ busuanzi:
 math:
   # Choose: mathjax, katex
   # Leave it empty if you don't need math
-  use: katex
+  use: mathjax
   per_page: true
   hide_scrollbar: false
 
@@ -464,7 +465,7 @@ math:
 
   katex:
     # Enable the copy KaTeX formula
-    copy_tex: true
+    copy_tex: flase
 
 # --------------------------------------
 # Search
@@ -801,11 +802,11 @@ display_mode: light
 
 # Configuration for beautifying the content of the article
 beautify:
-  enable: true
+  enable: false
   # Specify the field to beautify (site or post)
   field: post
   # Specify the icon to be used as a prefix for the title, such as '\f0c1'
-  title_prefix_icon:
+  title_prefix_icon: 
   # Specify the color of the title prefix icon, such as '#F47466'
   title_prefix_icon_color:
 
