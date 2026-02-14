@@ -7,6 +7,10 @@ tags:
 - DeepSpeed
 categories: 训练推理优化
 ---
+
+问硬件、硬件利用率
+讲讲deepspeed几个阶段，分别分片什么、代价是什么
+
 # 简介
 DeepSpeed是微软推出的大模型分布式训练的工具，主要实现了ZeRO并行训练算法。
 
