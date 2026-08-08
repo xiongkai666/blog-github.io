@@ -105,7 +105,6 @@ cover:
   # When cover is not set, the default cover is displayed
   default_cover: 
     - /img/daianna.jpg
-    - /img/chuyinweilai.jpg
     - /img/gwen.jpeg
     - /img/xindela.jpg
     - /img/bluegirl.jpg
